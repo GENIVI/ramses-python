@@ -1,0 +1,4 @@
+build/*
+external/ramses-sdk/build/*
+.vscode/*
+

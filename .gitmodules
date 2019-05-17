@@ -1,0 +1,6 @@
+[submodule "ramses-sdk"]
+	path = external/ramses-sdk
+	url = https://github.com/GENIVI/ramses.git
+[submodule "pybind11"]
+	path = external/pybind11
+	url = https://github.com/pybind/pybind11.git
