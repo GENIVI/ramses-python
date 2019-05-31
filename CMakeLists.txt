@@ -33,6 +33,8 @@ set(ramses_dependencies
 
 target_link_libraries(RamsesPython PRIVATE ${ramses_dependencies})
 
+# TODO check if there is a more correct way to install
+install(TARGETS RamsesPython DESTINATION .)
 
 if(ramses-python_ENABLE_TESTS)
     file(GLOB_RECURSE test_files
