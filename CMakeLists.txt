@@ -8,6 +8,8 @@
 
 cmake_minimum_required(VERSION 3.10)
 
+OPTION(ramses-python_ENABLE_TESTS "Enable tests" OFF)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
@@ -23,17 +25,6 @@ pybind11_add_module(RamsesPython ${src})
 target_include_directories(RamsesPython PRIVATE src/include)
 add_definitions(-DRAMSES_LINK_STATIC)
 
-file(GLOB_RECURSE test_files
-    LIST_DIRECTORIES FALSE
-    CONFIGURE_DEPENDS
-    ${CMAKE_CURRENT_SOURCE_DIR}/test/*
-)
-
-foreach(test_file ${test_files})
-    file(RELATIVE_PATH relativePath ${PROJECT_SOURCE_DIR}/test ${test_file})
-    configure_file(test/${relativePath} ${CMAKE_CURRENT_BINARY_DIR}/${relativePath} COPYONLY)
-endforeach()
-
 set(ramses_dependencies
     ramses-client-api
     ramses-client
@@ -41,4 +32,19 @@ set(ramses_dependencies
     ramses-framework)
 
 target_link_libraries(RamsesPython PRIVATE ${ramses_dependencies})
+
+
+if(ramses-python_ENABLE_TESTS)
+    file(GLOB_RECURSE test_files
+        LIST_DIRECTORIES FALSE
+        CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/test/*
+    )
+
+    foreach(test_file ${test_files})
+        file(RELATIVE_PATH relativePath ${CMAKE_CURRENT_SOURCE_DIR}/test ${test_file})
+        message("Src: test/${relativePath} Dest: ${CMAKE_CURRENT_BINARY_DIR} / ${relativePath}")
+        configure_file(test/${relativePath} ${CMAKE_CURRENT_BINARY_DIR}/${relativePath} COPYONLY)
+    endforeach()
+endif()
 
