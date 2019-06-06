@@ -1,5 +1,5 @@
 //  -------------------------------------------------------------------------
-//  Copyright (C) 2019 BMW AG
+//  Copyright (C) 2019 BMW AG, Daniel Werner Lima Souza de Almeida
 //  -------------------------------------------------------------------------
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -141,6 +141,12 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("createGeometry", &Scene::createGeometry)
         .def("saveToFiles", &Scene::saveToFiles)
         .def("getValidationReport", &Scene::getValidationReport)
+        .def("findObjectByName", &Scene::findObjectByName)
     ;
-}
 
+    class_<RamsesObject>(m, "RamsesObject")
+            .def("getName", &RamsesObject::getName)
+            .def("isOfType", &RamsesObject::isOfType)
+            .def("getType", &RamsesObject::getType)
+            ;
+}
