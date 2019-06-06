@@ -1,10 +1,11 @@
 //  -------------------------------------------------------------------------
-//  Copyright (C) 2019 BMW AG
+//  Copyright (C) 2019 BMW AG, Daniel Werner Lima Souza de Almeida
 //  -------------------------------------------------------------------------
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //  -------------------------------------------------------------------------
+
 
 #include "ramses-python/Scene.h"
 #include "ramses-python/Resource.h"
@@ -153,12 +154,12 @@ namespace RamsesPython
         // TODO fix ramses serialization API
         ramses::ResourceFileDescriptionSet resourceFileSet;
         ramses::ResourceFileDescription resourceFile(resourcesFile.c_str());
-        
+
         for(const auto& resource : m_resources)
             resourceFile.add(resource);
-        
+
         resourceFileSet.add(resourceFile);
-        
+
         m_scene->flush();
         m_client->saveSceneToFile(*m_scene, sceneFile.c_str(), resourceFileSet, compress);
     }
@@ -174,5 +175,9 @@ namespace RamsesPython
 
         return "";
     }
-}
 
+    RamsesPython::RamsesObject Scene::findObjectByName(const char* name)
+    {
+        return RamsesPython::RamsesObject {m_scene->findObjectByName(name)};
+    }
+}

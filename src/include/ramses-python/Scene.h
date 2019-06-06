@@ -1,5 +1,5 @@
 //  -------------------------------------------------------------------------
-//  Copyright (C) 2019 BMW AG
+//  Copyright (C) 2019 BMW AG, Daniel Werner Lima Souza de Almeida
 //  -------------------------------------------------------------------------
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,6 +15,7 @@
 #include "ramses-client-api/Scene.h"
 #include "ramses-client-api/RamsesClient.h"
 #include "ramses-client-api/Resource.h"
+#include "ramses-client-api/RamsesObject.h"
 
 #include "ramses-python/Resource.h"
 #include "ramses-python/TextureSampler.h"
@@ -25,6 +26,7 @@
 #include "ramses-python/RenderGroup.h"
 #include "ramses-python/RenderPass.h"
 #include "ramses-python/Camera.h"
+#include "ramses-python/RamsesObject.h"
 
 namespace boost
 {
@@ -70,6 +72,8 @@ namespace RamsesPython
 
         void saveToFiles(std::string sceneFile, std::string resourcesFile, bool compress);
         std::string getValidationReport() const;
+
+        RamsesObject findObjectByName(const char* name);
 
     private:
         ramses::Scene* m_scene;
