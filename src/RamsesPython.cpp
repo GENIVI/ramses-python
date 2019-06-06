@@ -109,7 +109,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("setVertexBuffer", &Geometry::setVertexBuffer)
     ;
 
-    class_<Camera>(m, "Camera")
+    class_<Camera, Node>(m, "Camera")
         .def(init<ramses::LocalCamera*>())
         .def("setFrustum", &PerspectiveCamera::setFrustum)
         .def("setViewport", &PerspectiveCamera::setViewport)

@@ -25,6 +25,8 @@ rootNode = scene.createNode("root")
 childNode = scene.createNode("child")
 rootNode.addChild(childNode)
 
+rootNode.addChild(camera)
+
 childNode.setTranslation(2.5, 0.5, 0.0)
 
 vertShader = """

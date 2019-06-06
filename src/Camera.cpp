@@ -13,7 +13,8 @@
 namespace RamsesPython
 {
     Camera::Camera(ramses::LocalCamera* camera)
-        : m_camera(camera)
+        : Node(camera)
+        , m_camera(camera)
     {
     }
 

@@ -9,12 +9,13 @@
 #ifndef PYTHONRAMSES_CAMERA_H
 #define PYTHONRAMSES_CAMERA_H
 
+#include "Node.h"
 #include "ramses-client-api/PerspectiveCamera.h"
 #include "ramses-client-api/OrthographicCamera.h"
 
 namespace RamsesPython
 {
-    class Camera
+    class Camera : public Node
     {
     public:
         Camera(ramses::LocalCamera* camera);
