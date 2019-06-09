@@ -8,6 +8,8 @@
 
 #include "ramses-python/RamsesPython.h"
 #include "ramses-python/Resource.h"
+#include "ramses-python/SceneGraphIterator.h"
+#include "ramses-client-api/SceneGraphIterator.h"
 
 // Needed for stl <-> python conversions - don't remove!
 #include "pybind11/stl.h"
@@ -236,4 +238,14 @@ PYBIND11_MODULE(RamsesPython, m)
         .value("ERamsesObjectType_DataVector4i",				ramses::ERamsesObjectType_DataVector4i            , "ERamsesObjectType_DataVector4i")
         .value("ERamsesObjectType_StreamTexture",               ramses::ERamsesObjectType_StreamTexture           , "ERamsesObjectType_StreamTexture")
 		.export_values();
+
+    class_<SceneGraphIterator>(m, "SceneGraphIterator")
+        .def(init<RamsesPython::Node&, ramses::ETreeTraversalStyle, ramses::ERamsesObjectType>())
+        .def("getNext", &SceneGraphIterator::getNext)
+        ;
+
+    enum_<ramses::ETreeTraversalStyle>(m, "ETreeTraversalStyle")
+        .value("ETreeTraversalStyle_DepthFirst", ramses::ETreeTraversalStyle_DepthFirst)
+        .value("ETreeTraversalStyle_BreadthFirst", ramses::ETreeTraversalStyle_BreadthFirst)
+        ;
 }
