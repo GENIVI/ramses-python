@@ -13,44 +13,17 @@
 
 namespace RamsesPython
 {
-
     class Node
     {
     public:
-        Node(ramses::Node* node)
-            : m_node(node)
-        {
-        }
+        Node(ramses::Node* node);
 
-        void addChild(Node node)
-        {
-            m_node->addChild(*node.m_node);
-        }
-
-        void setParent(Node node)
-        {
-            m_node->setParent(*node.m_node);
-        }
-
-        void setRotation(float x, float y, float z)
-        {
-            m_node->setRotation(x, y, z);
-        }
-
-        void setTranslation(float x, float y, float z)
-        {
-            m_node->setTranslation(x, y, z);
-        }
-
-        void setScaling(float x, float y, float z)
-        {
-            m_node->setScaling(x, y, z);
-        }
-
-        void setVisibility(bool visible)
-        {
-            m_node->setVisibility(visible);
-        }
+        void addChild(Node node);
+        void setParent(Node node);
+        void setRotation(float x, float y, float z);
+        void setTranslation(float x, float y, float z);
+        void setScaling(float x, float y, float z);
+        void setVisibility(bool visible);
 
         ramses::Node* m_node;
     };
