@@ -33,11 +33,9 @@ set(ramses_dependencies
 
 target_link_libraries(RamsesPython PRIVATE ${ramses_dependencies})
 
-if(NOT ramses-python_INSTALL_PREFIX)
-    set(ramses-python_INSTALL_PREFIX ${CMAKE_PREFIX_PATH})
-endif()
-
-install(TARGETS RamsesPython DESTINATION ${ramses-python_INSTALL_PREFIX})
+install(TARGETS RamsesPython
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
 
 if(ramses-python_ENABLE_TESTS)
     file(GLOB_RECURSE test_files
@@ -48,7 +46,6 @@ if(ramses-python_ENABLE_TESTS)
 
     foreach(test_file ${test_files})
         file(RELATIVE_PATH relativePath ${CMAKE_CURRENT_SOURCE_DIR}/test ${test_file})
-        message("Src: test/${relativePath} Dest: ${CMAKE_CURRENT_BINARY_DIR} / ${relativePath}")
         configure_file(test/${relativePath} ${CMAKE_CURRENT_BINARY_DIR}/${relativePath} COPYONLY)
     endforeach()
 endif()
