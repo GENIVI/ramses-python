@@ -15,7 +15,8 @@
 
 namespace RamsesPython
 {
-    RamsesObject::RamsesObject(ramses::RamsesObject* ramsesObject) : m_object(ramsesObject)
+    RamsesObject::RamsesObject(const ramses::RamsesObject* ramsesObject)
+        : m_object(ramsesObject)
     {
     };
 
