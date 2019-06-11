@@ -28,14 +28,6 @@
 #include "ramses-python/Camera.h"
 #include "ramses-python/RamsesObject.h"
 
-namespace boost
-{
-    namespace python
-    {
-        class list;
-    }
-}
-
 namespace RamsesPython
 {
     class Scene
