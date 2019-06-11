@@ -19,11 +19,11 @@ namespace RamsesPython
     class SceneGraphIterator
     {
         public:
-            SceneGraphIterator(RamsesPython::Node& startNode,
+            SceneGraphIterator(Node& startNode,
                                ramses::ETreeTraversalStyle traversalStyle,
                                ramses::ERamsesObjectType objectType);
 
-            RamsesPython::Node getNext();
+            Node getNext();
 
         private:
             ramses::SceneGraphIterator m_iter;
