@@ -9,6 +9,7 @@
 #include "ramses-python/RamsesPython.h"
 #include "ramses-python/Resource.h"
 #include "ramses-python/SceneGraphIterator.h"
+#include "ramses-python/TypeConversions.h"
 #include "ramses-client-api/SceneGraphIterator.h"
 
 // Needed for stl <-> python conversions - don't remove!
@@ -57,6 +58,12 @@ PYBIND11_MODULE(RamsesPython, m)
     class_<Ramses>(m, "Ramses")
         .def(init< std::string >())
         .def("createScene", &Ramses::createScene);
+
+    class_<RamsesObject>(m, "RamsesObject")
+        .def("getName", &RamsesObject::getName)
+        .def("isOfType", &RamsesObject::isOfType)
+        .def("getType", &RamsesObject::getType)
+        ;
 
     class_<Node, RamsesObject>(m, "Node")
         .def(init<ramses::Node*>())
@@ -147,12 +154,6 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("getValidationReport", &Scene::getValidationReport)
         .def("findObjectByName", &Scene::findObjectByName)
     ;
-
-    class_<RamsesObject>(m, "RamsesObject")
-            .def("getName", &RamsesObject::getName)
-            .def("isOfType", &RamsesObject::isOfType)
-            .def("getType", &RamsesObject::getType)
-            ;
 
     enum_<ramses::ERamsesObjectType>(m, "ERamsesObjectType", arithmetic(), "Ramses object type")
         .value("ERamsesObjectType_Invalid",                     ramses::ERamsesObjectType_Invalid                 , "ERamsesObjectType_Invalid")
@@ -250,4 +251,9 @@ PYBIND11_MODULE(RamsesPython, m)
         .value("ETreeTraversalStyle_DepthFirst", ramses::ETreeTraversalStyle_DepthFirst)
         .value("ETreeTraversalStyle_BreadthFirst", ramses::ETreeTraversalStyle_BreadthFirst)
         ;
+
+    // TODO find out if there is a more pythonic way to deal with types and casts
+    m.def("toMesh", &RamsesPython::TypeConversions::ToMesh);
+    m.def("toPerspectiveCamera", &RamsesPython::TypeConversions::ToPerspectiveCamera);
+    m.def("toOrthographicCamera", &RamsesPython::TypeConversions::ToOrthographicCamera);
 }

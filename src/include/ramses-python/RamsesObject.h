@@ -19,14 +19,13 @@ namespace RamsesPython
 {
     class RamsesObject
     {
-        public:
-            RamsesObject(const ramses::RamsesObject* ramsesObject);
-            std::string getName();
-            bool isOfType(ramses::ERamsesObjectType type) const;
-            ramses::ERamsesObjectType getType() const;
-        private:
-            const ramses::RamsesObject* m_object;
+    public:
+        RamsesObject(const ramses::RamsesObject* ramsesObject);
+        std::string getName();
+        bool isOfType(ramses::ERamsesObjectType type) const;
+        ramses::ERamsesObjectType getType() const;
 
+        const ramses::RamsesObject* m_object;
     };
 }
 #endif
