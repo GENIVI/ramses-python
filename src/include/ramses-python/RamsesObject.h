@@ -14,20 +14,19 @@
 
 #include "ramses-client-api/RamsesObject.h"
 #include "ramses-client-api/RamsesObjectTypes.h"
+
 namespace RamsesPython
 {
+    class RamsesObject
+    {
+        public:
+            RamsesObject(ramses::RamsesObject* ramsesObject);
+            std::string getName();
+            bool isOfType(ramses::ERamsesObjectType type) const;
+            ramses::ERamsesObjectType getType() const;
+        private:
+            ramses::RamsesObject* m_object;
 
-class RamsesObject
-{
-    public:
-        RamsesObject(ramses::RamsesObject* ramsesObject);
-        std::string getName();
-        bool isOfType(ramses::ERamsesObjectType type) const;
-        ramses::ERamsesObjectType getType() const;
-    private:
-        ramses::RamsesObject* m_object;
-
-};
-
+    };
 }
 #endif
