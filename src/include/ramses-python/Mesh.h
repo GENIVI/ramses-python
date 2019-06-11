@@ -9,8 +9,10 @@
 #ifndef PYTHONRAMSES_MESH_H
 #define PYTHONRAMSES_MESH_H
 
-#include "ramses-python/Node.h"
 #include "ramses-client-api/MeshNode.h"
+#include "ramses-python/Node.h"
+#include "ramses-python/Appearance.h"
+#include "ramses-python/Geometry.h"
 
 namespace RamsesPython
 {
@@ -28,9 +30,19 @@ namespace RamsesPython
             m_mesh->setAppearance(*appearance.m_appearance);
         }
 
+        Appearance getAppearance() const
+        {
+            return Appearance(m_mesh->getAppearance());
+        }
+
         void setGeometry(Geometry geometry)
         {
             m_mesh->setGeometryBinding(*geometry.m_geometry);
+        }
+
+        Geometry getGeometry() const
+        {
+            return Geometry(m_mesh->getGeometryBinding());
         }
 
         ramses::MeshNode* m_mesh;

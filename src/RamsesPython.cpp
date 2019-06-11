@@ -72,7 +72,9 @@ PYBIND11_MODULE(RamsesPython, m)
     class_<Mesh, Node>(m, "Mesh")
         .def(init<ramses::MeshNode*>())
         .def("setAppearance", &Mesh::setAppearance)
+        .def("getAppearance", &Mesh::getAppearance)
         .def("setGeometry", &Mesh::setGeometry)
+        .def("getGeometry", &Mesh::getGeometry)
     ;
 
     class_<RenderGroup>(m, "RenderGroup")
