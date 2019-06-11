@@ -12,7 +12,8 @@
 namespace RamsesPython
 {
     Node::Node(ramses::Node* node)
-        : m_node(node)
+        : RamsesObject(node)
+        , m_node(node)
     {
     }
 

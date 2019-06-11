@@ -17,7 +17,8 @@
 namespace RamsesPython
 {
     Geometry::Geometry(ramses::GeometryBinding* geometry)
-        : m_geometry(geometry)
+        : RamsesObject(geometry)
+        , m_geometry(geometry)
     {
     }
 

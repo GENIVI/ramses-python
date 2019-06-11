@@ -58,7 +58,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def(init< std::string >())
         .def("createScene", &Ramses::createScene);
 
-    class_<Node>(m, "Node")
+    class_<Node, RamsesObject>(m, "Node")
         .def(init<ramses::Node*>())
         .def("addChild", &Node::addChild)
         .def("setParent", &Node::setParent)
@@ -77,7 +77,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("getGeometry", &Mesh::getGeometry)
     ;
 
-    class_<RenderGroup>(m, "RenderGroup")
+    class_<RenderGroup, RamsesObject>(m, "RenderGroup")
         .def(init<ramses::RenderGroup*>())
         .def("addMesh", &RenderGroup::addMesh)
         .def("removeMesh", &RenderGroup::removeMesh)
@@ -85,29 +85,29 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("removeRenderGroup", &RenderGroup::removeRenderGroup)
     ;
 
-    class_<RenderPass>(m, "RenderPass")
+    class_<RenderPass, RamsesObject>(m, "RenderPass")
         .def(init<ramses::RenderPass*>())
         .def("addRenderGroup", &RenderPass::addRenderGroup)
         .def("removeRenderGroup", &RenderPass::removeRenderGroup)
         .def("setCamera", &RenderPass::setCamera)
     ;
 
-    class_<RamsesPython::Resource>(m, "Resource")
+    class_<Resource, RamsesObject>(m, "Resource")
         .def(init<ramses::Resource*>())
     ;
 
-    class_<TextureSampler>(m, "TextureSampler")
+    class_<TextureSampler, RamsesObject>(m, "TextureSampler")
         .def(init<ramses::TextureSampler*>())
     ;
 
-    class_<Appearance>(m, "Appearance")
+    class_<Appearance, RamsesObject>(m, "Appearance")
         .def(init<ramses::Appearance*>())
         .def("setUniformFloat", &Appearance::setUniformFloat)
         .def("setUniformInt", &Appearance::setUniformInt)
         .def("setTexture", &Appearance::setTexture)
     ;
 
-    class_<Geometry>(m, "Geometry")
+    class_<Geometry, RamsesObject>(m, "Geometry")
         .def(init<ramses::GeometryBinding*>())
         .def("setIndexBuffer", &Geometry::setIndexBuffer)
         .def("setVertexBuffer", &Geometry::setVertexBuffer)
@@ -128,7 +128,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def(init<ramses::OrthographicCamera*>())
     ;
 
-    class_<Scene>(m, "Scene")
+    class_<Scene, RamsesObject>(m, "Scene")
         .def(init<ramses::Scene*, ramses::RamsesClient*>())
         .def("createEffect", &Scene::createEffect)
         .def("createIndexArray", &Scene::createIndexArray)

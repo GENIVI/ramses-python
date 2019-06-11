@@ -9,15 +9,17 @@
 #ifndef PYTHONRAMSES_TEXTURESAMPLER_H
 #define PYTHONRAMSES_TEXTURESAMPLER_H
 
+#include "ramses-python/RamsesObject.h"
 #include "ramses-client-api/TextureSampler.h"
 
 namespace RamsesPython
 {
-    class TextureSampler
+    class TextureSampler : public RamsesObject
     {
     public:
         TextureSampler(ramses::TextureSampler* textureSampler)
-            : m_textureSampler(textureSampler)
+            : RamsesObject(textureSampler)
+            , m_textureSampler(textureSampler)
         {
         }
 

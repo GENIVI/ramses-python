@@ -10,10 +10,11 @@
 #define PYTHONRAMSES_NODE_H
 
 #include "ramses-client-api/Node.h"
+#include "ramses-python/RamsesObject.h"
 
 namespace RamsesPython
 {
-    class Node
+    class Node : public RamsesObject
     {
     public:
         Node(ramses::Node* node);

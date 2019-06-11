@@ -30,7 +30,7 @@
 
 namespace RamsesPython
 {
-    class Scene
+    class Scene : public RamsesObject
     {
     public:
         Scene(ramses::Scene* scene, ramses::RamsesClient* client);

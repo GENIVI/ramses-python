@@ -9,7 +9,7 @@
 #ifndef PYTHONRAMSES_CAMERA_H
 #define PYTHONRAMSES_CAMERA_H
 
-#include "Node.h"
+#include "ramses-python/Node.h"
 #include "ramses-client-api/PerspectiveCamera.h"
 #include "ramses-client-api/OrthographicCamera.h"
 

@@ -17,7 +17,8 @@
 namespace RamsesPython
 {
     Scene::Scene(ramses::Scene* scene, ramses::RamsesClient* client)
-        : m_scene(scene)
+        : RamsesObject(scene)
+        , m_scene(scene)
         , m_client(client)
     {
     }

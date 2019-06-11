@@ -13,7 +13,8 @@
 namespace RamsesPython
 {
     Appearance::Appearance(ramses::Appearance* appearance)
-        : m_appearance(appearance)
+        : RamsesObject(appearance)
+        , m_appearance(appearance)
     {
     }
 

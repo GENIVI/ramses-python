@@ -9,15 +9,17 @@
 #ifndef PYTHONRAMSES_RESOURCE_H
 #define PYTHONRAMSES_RESOURCE_H
 
+#include "ramses-python/RamsesObject.h"
 #include "ramses-client-api/Resource.h"
 
 namespace RamsesPython
 {
-    class Resource
+    class Resource : public RamsesObject
     {
     public:
         Resource(const ramses::Resource* resource)
-            : m_resource(resource)
+            : RamsesObject(resource)
+            , m_resource(resource)
         {
         }
 

@@ -15,10 +15,11 @@
 #include "ramses-client-api/Appearance.h"
 
 #include "ramses-python/TextureSampler.h"
+#include "ramses-python/RamsesObject.h"
 
 namespace RamsesPython
 {
-    class Appearance
+    class Appearance : public RamsesObject
     {
     public:
         Appearance(ramses::Appearance* appearance);

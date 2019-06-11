@@ -9,16 +9,18 @@
 #ifndef PYTHONRAMSES_RENDERPASS_H
 #define PYTHONRAMSES_RENDERPASS_H
 
+#include "ramses-python/RamsesObject.h"
 #include "ramses-python/Camera.h"
 #include "ramses-client-api/RenderPass.h"
 
 namespace RamsesPython
 {
-    class RenderPass
+    class RenderPass : public RamsesObject
     {
     public:
         RenderPass(ramses::RenderPass* pass)
-            : m_renderPass(pass)
+            : RamsesObject(pass)
+            , m_renderPass(pass)
         {
         }
 

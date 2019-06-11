@@ -10,14 +10,16 @@
 #define PYTHONRAMSES_RENDERGROUP_H
 
 #include "ramses-client-api/RenderGroup.h"
+#include "ramses-python/RamsesObject.h"
 
 namespace RamsesPython
 {
-    class RenderGroup
+    class RenderGroup : public RamsesObject
     {
     public:
         RenderGroup(ramses::RenderGroup* group)
-            : m_renderGroup(group)
+            : RamsesObject(group)
+            , m_renderGroup(group)
         {
         }
 

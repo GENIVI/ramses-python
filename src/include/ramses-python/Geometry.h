@@ -9,12 +9,13 @@
 #ifndef PYTHONRAMSES_GEOMETRY_H
 #define PYTHONRAMSES_GEOMETRY_H
 
+#include "ramses-python/RamsesObject.h"
 #include "ramses-python/Resource.h"
 #include "ramses-client-api/GeometryBinding.h"
 
 namespace RamsesPython
 {
-    class Geometry
+    class Geometry : public RamsesObject
     {
     public:
         Geometry(ramses::GeometryBinding* geometry);
