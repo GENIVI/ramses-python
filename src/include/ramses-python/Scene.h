@@ -67,7 +67,6 @@ namespace RamsesPython
 
         RamsesObject findObjectByName(const char* name);
 
-    private:
         ramses::Scene* m_scene;
         ramses::RamsesClient* m_client;
         std::vector<const ramses::Resource*> m_resources;

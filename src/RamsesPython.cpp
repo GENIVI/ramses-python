@@ -11,6 +11,7 @@
 #include "ramses-python/SceneGraphIterator.h"
 #include "ramses-python/TypeConversions.h"
 #include "ramses-client-api/SceneGraphIterator.h"
+#include "ramses-renderer-api/DisplayConfig.h"
 
 // Needed for stl <-> python conversions - don't remove!
 #include "pybind11/stl.h"
@@ -21,6 +22,7 @@ namespace RamsesPython
         : m_framework(new ramses::RamsesFramework(GetStaticConfig()))
         , m_client(new ramses::RamsesClient(name.c_str(), *m_framework))
     {
+        m_framework->connect();
     };
 
     Scene Ramses::createScene(std::string sceneName)
@@ -31,6 +33,18 @@ namespace RamsesPython
         m_scenes[sceneId] = m_client->createScene(sceneId, ramses::SceneConfig(), sceneName.c_str());
 
         return Scene(m_scenes[sceneId], m_client.get());
+    }
+
+    Window Ramses::openWindow(uint32_t width, uint32_t height, int32_t posX, int32_t posY)
+    {
+        if (!m_renderer)
+        {
+            m_renderer.reset(new ramses::RamsesRenderer(*m_framework, ramses::RendererConfig()));
+            m_displayManager.reset(new ramses_display_manager::DisplayManager(*m_renderer, *m_framework, false));
+            m_renderer->startThread();
+        }
+
+        return Window(m_displayManager, m_renderer, width, height, posX, posY);
     }
 
     ramses::RamsesFrameworkConfig& Ramses::GetStaticConfig()
@@ -55,9 +69,16 @@ PYBIND11_MODULE(RamsesPython, m)
         .. currentmodule:: RamsesPython
     )pbdoc";
 
+    class_<Window>(m, "Window")
+        .def(init< std::shared_ptr<ramses_display_manager::DisplayManager>, std::shared_ptr<ramses::RamsesRenderer>, uint32_t, uint32_t, int32_t, int32_t>())
+        .def("showScene", &Window::showScene)
+        .def("takeScreenshot", &Window::takeScreenshot)
+        .def("close", &Window::close);
+
     class_<Ramses>(m, "Ramses")
         .def(init< std::string >())
-        .def("createScene", &Ramses::createScene);
+        .def("createScene", &Ramses::createScene)
+        .def("openWindow", &Ramses::openWindow);
 
     class_<RamsesObject>(m, "RamsesObject")
         .def("getName", &RamsesObject::getName)
