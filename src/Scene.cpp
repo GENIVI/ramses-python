@@ -9,6 +9,7 @@
 
 #include "ramses-python/Scene.h"
 #include "ramses-python/Resource.h"
+#include "ramses-python/SceneToText.h"
 
 #include "ramses-client.h"
 #include "ramses-utils.h"
@@ -175,6 +176,19 @@ namespace RamsesPython
         }
 
         return "";
+    }
+
+    std::string Scene::toTextWithFilter(std::string filter)
+    {
+        SceneToText stt(*m_scene, *m_client, true, filter);
+        std::ostringstream outputStream;
+        stt.printToStream(outputStream);
+        return outputStream.str();
+    }
+
+    std::string Scene::toText()
+    {
+        return toTextWithFilter("");
     }
 
     RamsesPython::RamsesObject Scene::findObjectByName(const char* name)

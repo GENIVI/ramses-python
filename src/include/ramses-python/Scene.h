@@ -64,6 +64,8 @@ namespace RamsesPython
 
         void saveToFiles(std::string sceneFile, std::string resourcesFile, bool compress);
         std::string getValidationReport() const;
+        std::string toText();
+        std::string toTextWithFilter(std::string filter);
 
         RamsesObject findObjectByName(const char* name);
 

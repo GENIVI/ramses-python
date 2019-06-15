@@ -174,6 +174,8 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("saveToFiles", &Scene::saveToFiles)
         .def("getValidationReport", &Scene::getValidationReport)
         .def("findObjectByName", &Scene::findObjectByName)
+        .def("toText", &Scene::toText)
+        .def("toText", &Scene::toTextWithFilter)
     ;
 
     enum_<ramses::ERamsesObjectType>(m, "ERamsesObjectType", arithmetic(), "Ramses object type")
