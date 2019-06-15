@@ -16,18 +16,13 @@ add_subdirectory(pybind11)
 # RAMSES
 ###################################################################################
 
-# Enable/disable renderer
-OPTION(BUILD_RENDERER_COMPONENTS "Build renderer components (standalone renderer, scene viewer, etc.): ON, OFF" OFF)
-
-if(BUILD_RENDERER_COMPONENTS)
-    set(RND_GENERIC ON)
-    if(CMAKE_SYSTEM_NAME MATCHES "Windows")
-        set(RND_WINDOWS ON)
-        set(RND_LINUX   OFF)
-    else()
-        set(RND_WINDOWS OFF)
-        set(RND_LINUX   ON)
-    endif()
+set(RND_GENERIC ON)
+if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    set(RND_WINDOWS ON)
+    set(RND_LINUX   OFF)
+else()
+    set(RND_WINDOWS OFF)
+    set(RND_LINUX   ON)
 endif()
 
 set(ramses-sdk_BUILD_EXAMPLES                   							OFF CACHE BOOL "")
