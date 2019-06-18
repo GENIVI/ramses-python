@@ -29,14 +29,11 @@ namespace RamsesPython
         ramses::EffectDescription effectDesc;
 
         // TODO Should come from outside
-        effectDesc.setUniformSemantic("u_MMatrix", ramses::EEffectUniformSemantic_ModelMatrix);
-        effectDesc.setUniformSemantic("u_MVMatrix3", ramses::EEffectUniformSemantic_ModelViewMatrix33);
-        effectDesc.setUniformSemantic("u_MVMatrix", ramses::EEffectUniformSemantic_ModelViewMatrix);
-        effectDesc.setUniformSemantic("u_MVPMatrix", ramses::EEffectUniformSemantic_ModelViewProjectionMatrix);
-        effectDesc.setUniformSemantic("MVPMatrix", ramses::EEffectUniformSemantic_ModelViewProjectionMatrix);
-        effectDesc.setUniformSemantic("mvpMatrix", ramses::EEffectUniformSemantic_ModelViewProjectionMatrix);
-        effectDesc.setUniformSemantic("u_CameraWorldPosition", ramses::EEffectUniformSemantic_CameraWorldPosition);
+        effectDesc.setUniformSemantic("u_ViewMatrix", ramses::EEffectUniformSemantic_ViewMatrix);
+        effectDesc.setUniformSemantic("u_ModelMatrix", ramses::EEffectUniformSemantic_ModelMatrix);
         effectDesc.setUniformSemantic("u_ProjectionMatrix", ramses::EEffectUniformSemantic_ProjectionMatrix);
+        effectDesc.setUniformSemantic("u_MVPMatrix", ramses::EEffectUniformSemantic_ModelViewProjectionMatrix);
+        effectDesc.setUniformSemantic("u_CameraWorldPosition", ramses::EEffectUniformSemantic_CameraWorldPosition);
 
         effectDesc.setVertexShader(vertexShader.c_str());
         effectDesc.setFragmentShader(fragmentShader.c_str());
