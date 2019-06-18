@@ -36,8 +36,9 @@ namespace RamsesPython
         scene.m_scene->publish();
 
         auto sceneId = scene.m_scene->getSceneId();
-        m_displayManager->showSceneOnDisplay(sceneId, m_displayId);
-        while (!m_displayManager->isSceneShown(sceneId))
+        m_displayManager->setSceneMapping(sceneId, m_displayId);
+        m_displayManager->setSceneState(sceneId, ramses_display_manager::SceneState::Rendered);
+        while (m_displayManager->getLastReportedSceneState(sceneId) != ramses_display_manager::SceneState::Rendered)
             m_displayManager->dispatchAndFlush();
 
         m_shownScenes.insert(sceneId);
@@ -83,16 +84,28 @@ namespace RamsesPython
     {
         // Unsubscribe all scenes
         for (auto sceneId : m_shownScenes)
-            m_displayManager->unsubscribeScene(sceneId);
+            m_displayManager->setSceneState(sceneId, ramses_display_manager::SceneState::Unavailable);
 
-        using namespace std::chrono_literals;
-
-        // TODO this is a pretty bad hack, remove once DisplayManager can synchronously wait until all scenes were unmapped
-        for (int i = 0; i < 20; ++i)
+        // Wait until all scenes were successfully unsubscribed before destroying the display
+        bool anySceneAvailable = true;
+        while (anySceneAvailable)
         {
-            m_displayManager->dispatchAndFlush();
-            std::this_thread::sleep_for(10ms);
+            anySceneAvailable = false;
+            for (auto sceneId : m_shownScenes)
+            {
+                if (m_displayManager->getLastReportedSceneState(sceneId) != ramses_display_manager::SceneState::Unavailable)
+                {
+                    anySceneAvailable = true;
+                    break;
+                }
+            }
         }
+        //// TODO this is a pretty bad hack, remove once DisplayManager can synchronously wait until all scenes were unmapped
+        //for (int i = 0; i < 20; ++i)
+        //{
+        //    m_displayManager->dispatchAndFlush();
+        //    std::this_thread::sleep_for(10ms);
+        //}
 
         // Destroy display
         m_displayManager->destroyDisplay(m_displayId);
