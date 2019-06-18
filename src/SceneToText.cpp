@@ -253,6 +253,8 @@ namespace RamsesPython
                     "Orthographic Camera:";
 
                 stream << "  " << cameraType << "\n    Planes: [" <<
+                    "Near: " << localCamera->getNearPlane() <<
+                    "Far: " << localCamera->getFarPlane() <<
                     "Left: " << localCamera->getLeftPlane() <<
                     " Right: " << localCamera->getRightPlane() <<
                     " Bot: " << localCamera->getBottomPlane() <<
