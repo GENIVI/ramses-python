@@ -99,6 +99,8 @@ namespace RamsesPython
                     break;
                 }
             }
+
+            m_displayManager->dispatchAndFlush();
         }
         //// TODO this is a pretty bad hack, remove once DisplayManager can synchronously wait until all scenes were unmapped
         //for (int i = 0; i < 20; ++i)
