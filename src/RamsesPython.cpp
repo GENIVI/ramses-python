@@ -279,4 +279,5 @@ PYBIND11_MODULE(RamsesPython, m)
     m.def("toMesh", &RamsesPython::TypeConversions::ToMesh);
     m.def("toPerspectiveCamera", &RamsesPython::TypeConversions::ToPerspectiveCamera);
     m.def("toOrthographicCamera", &RamsesPython::TypeConversions::ToOrthographicCamera);
+    m.def("toNode", &RamsesPython::TypeConversions::ToNode);
 }
