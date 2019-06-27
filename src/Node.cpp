@@ -51,6 +51,11 @@ namespace RamsesPython
 
     Node Node::getParent()
     {
+        ramses:: Node* parent = m_node->getParent();
+
+        if(!parent)
+            throw std::exception{};
+
         return Node{m_node->getParent()};
     }
 
