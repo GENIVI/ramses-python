@@ -94,6 +94,11 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("setTranslation", &Node::setTranslation)
         .def("setScaling", &Node::setScaling)
         .def("setVisibility", &Node::addChild)
+        .def("getParent", &Node::getParent)
+        .def("getRotation", &Node::getRotation)
+        .def("getTranslation", &Node::getTranslation)
+        .def("getScaling", &Node::getScaling)
+        .def("getVisibility", &Node::getVisibility)
         .def("addChild", &Node::addChild)
     ;
 

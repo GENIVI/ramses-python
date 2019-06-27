@@ -9,6 +9,8 @@
 #ifndef PYTHONRAMSES_NODE_H
 #define PYTHONRAMSES_NODE_H
 
+#include <vector>
+
 #include "ramses-client-api/Node.h"
 #include "ramses-python/RamsesObject.h"
 
@@ -25,6 +27,12 @@ namespace RamsesPython
         void setTranslation(float x, float y, float z);
         void setScaling(float x, float y, float z);
         void setVisibility(bool visible);
+
+        Node getParent();
+        std::vector<float> getRotation();
+        std::vector<float> getTranslation();
+        std::vector<float> getScaling();
+        bool getVisibility();
 
         ramses::Node* m_node;
     };

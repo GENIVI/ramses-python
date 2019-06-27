@@ -6,6 +6,8 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //  -------------------------------------------------------------------------
 
+#include <vector>
+
 #include "ramses-python/Node.h"
 #include <assert.h>
 
@@ -46,4 +48,43 @@ namespace RamsesPython
     {
         m_node->setVisibility(visible);
     }
+
+    Node Node::getParent()
+    {
+        return Node{m_node->getParent()};
+    }
+
+    std::vector<float> Node::getRotation()
+    {
+        float x, y, z;
+        ramses::status_t success = m_node->getRotation(x, y, z);
+        assert(ramses::StatusOK == success);
+
+        return std::vector<float> {x, y, z};
+    }
+
+    std::vector<float> Node::getTranslation()
+    {
+        float x, y, z;
+        ramses::status_t success = m_node->getTranslation(x, y, z);
+        assert(ramses::StatusOK == success);
+
+        return std::vector<float> {x, y, z};
+    }
+
+    std::vector<float> Node::getScaling()
+    {
+        float x, y, z;
+        ramses::status_t success = m_node->getScaling(x, y, z);
+        assert(ramses::StatusOK == success);
+
+        return std::vector<float> {x, y, z};
+    }
+
+    bool Node::getVisibility()
+    {
+        return m_node->getVisibility();
+    }
+
+
 }
