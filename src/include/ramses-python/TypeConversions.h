@@ -52,6 +52,16 @@ namespace RamsesPython
             assert(camera != nullptr);
             return OrthographicCamera(camera);
         }
+
+        static Node ToNode(RamsesObject object)
+        {
+            assert(object.m_object != nullptr);
+            ramses::Node* node = ramses::RamsesUtils::TryConvert<ramses::Node>(*const_cast<ramses::RamsesObject*>(object.m_object));
+            // TODO rework error handling if needed
+            assert(node != nullptr);
+            return Node(node);
+        }
+
     };
 }
 
