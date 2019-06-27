@@ -23,8 +23,12 @@ namespace RamsesPython
 
     RamsesPython::Node SceneGraphIterator::getNext()
     {
-        ramses::Node* next {m_iter.getNext()};
-        return RamsesPython::Node {next};
+        ramses::Node* next_ptr = m_iter.getNext();
+
+        if(!next_ptr)
+            throw std::exception{};
+
+        return RamsesPython::Node {next_ptr};
     }
 
 }
