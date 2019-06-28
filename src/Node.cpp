@@ -91,5 +91,16 @@ namespace RamsesPython
         return m_node->getVisibility();
     }
 
+    std::vector<float> Node::getModelMatrix()
+    {
+        const uint8_t matrix_sz = 16;
+        float in[matrix_sz];
+
+        ramses::status_t success = m_node->getModelMatrix(in);
+        assert(ramses::StatusOK == success);
+
+        return std::vector<float> {in, in + matrix_sz};
+    }
+
 
 }

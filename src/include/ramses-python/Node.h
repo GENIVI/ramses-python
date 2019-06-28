@@ -34,6 +34,7 @@ namespace RamsesPython
         std::vector<float> getScaling();
         bool getVisibility();
 
+        std::vector<float> getModelMatrix();
         ramses::Node* m_node;
     };
 }
