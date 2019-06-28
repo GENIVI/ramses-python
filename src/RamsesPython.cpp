@@ -99,6 +99,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("getTranslation", &Node::getTranslation)
         .def("getScaling", &Node::getScaling)
         .def("getVisibility", &Node::getVisibility)
+        .def("getModelMatrix", &Node::getModelMatrix)
     ;
 
     class_<Mesh, Node>(m, "Mesh")
