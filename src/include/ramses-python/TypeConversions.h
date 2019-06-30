@@ -9,6 +9,9 @@
 #ifndef PYTHONRAMSES_TYPECONVERSIONS_H
 #define PYTHONRAMSES_TYPECONVERSIONS_H
 
+#include <string>
+#include <exception>
+
 #include "ramses-client-api/MeshNode.h"
 #include "ramses-client-api/PerspectiveCamera.h"
 #include "ramses-client-api/OrthographicCamera.h"
@@ -30,8 +33,13 @@ namespace RamsesPython
         {
             assert(object.m_object != nullptr);
             ramses::MeshNode* meshNode = ramses::RamsesUtils::TryConvert<ramses::MeshNode>(*const_cast<ramses::RamsesObject*>(object.m_object));
-            // TODO rework error handling if needed
-            assert(meshNode != nullptr);
+
+            if(!meshNode)
+            {
+                std::string msg {"Cannot convert this object to a MeshNode"};
+                throw std::runtime_error{msg};
+            }
+
             return Mesh(meshNode);
         }
 
@@ -39,8 +47,13 @@ namespace RamsesPython
         {
             assert(object.m_object != nullptr);
             ramses::PerspectiveCamera* camera = ramses::RamsesUtils::TryConvert<ramses::PerspectiveCamera>(*const_cast<ramses::RamsesObject*>(object.m_object));
-            // TODO rework error handling if needed
-            assert(camera != nullptr);
+
+            if(!camera)
+            {
+                std::string msg {"Cannot convert this object to a PerspectiveCamera"};
+                throw std::runtime_error{msg};
+            }
+
             return PerspectiveCamera(camera);
         }
 
@@ -48,8 +61,13 @@ namespace RamsesPython
         {
             assert(object.m_object != nullptr);
             ramses::OrthographicCamera* camera = ramses::RamsesUtils::TryConvert<ramses::OrthographicCamera>(*const_cast<ramses::RamsesObject*>(object.m_object));
-            // TODO rework error handling if needed
-            assert(camera != nullptr);
+
+            if(!camera)
+            {
+                std::string msg {"Cannot convert this object to an OrtographicCamera"};
+                throw std::runtime_error{msg};
+            }
+
             return OrthographicCamera(camera);
         }
 
@@ -57,8 +75,13 @@ namespace RamsesPython
         {
             assert(object.m_object != nullptr);
             ramses::Node* node = ramses::RamsesUtils::TryConvert<ramses::Node>(*const_cast<ramses::RamsesObject*>(object.m_object));
-            // TODO rework error handling if needed
-            assert(node != nullptr);
+
+            if(!node)
+            {
+                std::string msg {"Cannot convert this object to Node"};
+                throw std::runtime_error{msg};
+            }
+
             return Node(node);
         }
 

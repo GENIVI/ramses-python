@@ -7,6 +7,9 @@
 //  -------------------------------------------------------------------------
 
 
+#include <string>
+#include <exception>
+
 #include "ramses-python/Scene.h"
 #include "ramses-python/Resource.h"
 #include "ramses-python/SceneToText.h"
@@ -88,7 +91,9 @@ namespace RamsesPython
         case 4:
             vertexResource = m_client->createConstVector4fArray(static_cast<uint32_t>(vertexData.size()) / components, (vertexData).data());
             break;
-        default: assert(false && "unsupported vertex array format");
+        default:
+            std::string msg {"Unsupported vertex array format"};
+            throw std::runtime_error {msg};
         }
 
         m_resources.push_back(vertexResource);
