@@ -14,7 +14,12 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+# Temporary workaround to prevent ramses installation
+# Fix ramses to be able to disable installation
+set(CMAKE_INSTALL_PREFIX_BEFORE_RAMSES ${CMAKE_INSTALL_PREFIX})
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
 add_subdirectory(external)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX_BEFORE_RAMSES})
 
 file(GLOB src
     src/*.cpp
