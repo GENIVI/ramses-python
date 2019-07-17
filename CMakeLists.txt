@@ -44,6 +44,8 @@ set(ramses_dependencies
 
 target_link_libraries(RamsesPython PRIVATE ${ramses_dependencies})
 
+install(TARGETS RamsesPython LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 if(ramses-python_ENABLE_TESTS)
     file(GLOB_RECURSE test_files
         LIST_DIRECTORIES FALSE
