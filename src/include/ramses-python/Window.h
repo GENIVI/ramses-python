@@ -19,20 +19,21 @@ namespace RamsesPython
     class Window
     {
     public:
-        Window(std::shared_ptr<ramses_display_manager::DisplayManager> displayManager, std::shared_ptr<ramses::RamsesRenderer> renderer, uint32_t width, uint32_t height, int32_t posX, int32_t posY);
+        Window(ramses_display_manager::DisplayManager* displayManager, ramses::RamsesRenderer* renderer, uint32_t width, uint32_t height, int32_t posX, int32_t posY);
 
-        void showScene(Scene scene);
+        void showScene(Scene& scene);
         void takeScreenshot(std::string file);
         void close();
 
     private:
-        std::shared_ptr<ramses_display_manager::DisplayManager> m_displayManager;
+        ramses_display_manager::DisplayManager* m_displayManager;
         // TODO Only needed for screenshots - implement feature in display manager, remove renderer reference here
-        std::shared_ptr<ramses::RamsesRenderer> m_renderer;
+        ramses::RamsesRenderer* m_renderer;
         ramses::displayId_t m_displayId;
         std::unordered_set<ramses::sceneId_t> m_shownScenes;
         const uint32_t m_width;
         const uint32_t m_height;
+        void _showScene_internal(Scene& scene);
     };
 }
 

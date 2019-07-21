@@ -29,7 +29,7 @@ namespace RamsesPython
     {
     public:
         Ramses(std::string name);
-
+        ~Ramses();
         Scene createScene(std::string sceneName);
         Window openWindow(uint32_t width, uint32_t height, int32_t posX = 20, int32_t posY = 20);
 
@@ -37,12 +37,13 @@ namespace RamsesPython
         static ramses::RamsesFrameworkConfig& GetStaticConfig();
 
         // TODO is there a way to make class copy-able, and not use shared pointers?
-        std::shared_ptr<ramses::RamsesFramework> m_framework;
-        std::shared_ptr<ramses::RamsesClient> m_client;
-        std::shared_ptr<ramses::RamsesRenderer> m_renderer;
-        std::shared_ptr<ramses_display_manager::DisplayManager> m_displayManager;
+        ramses::RamsesFramework* m_framework = nullptr;
+        ramses::RamsesClient* m_client = nullptr;
+        ramses::RamsesRenderer* m_renderer = nullptr;
+        ramses_display_manager::DisplayManager* m_displayManager = nullptr;
 
         std::unordered_map<ramses::sceneId_t, ramses::Scene*> m_scenes;
+        std::vector<Window*> m_open_windows;
     };
 }
 

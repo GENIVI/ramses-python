@@ -13,10 +13,12 @@
 #include "Utils/Image.h"
 
 #include <vector>
+#include <thread>
+#include <cstdlib>
 
 namespace RamsesPython
 {
-    Window::Window(std::shared_ptr<ramses_display_manager::DisplayManager> displayManager, std::shared_ptr<ramses::RamsesRenderer> renderer, uint32_t width, uint32_t height, int32_t posX, int32_t posY)
+    Window::Window(ramses_display_manager::DisplayManager* displayManager, ramses::RamsesRenderer* renderer, uint32_t width, uint32_t height, int32_t posX, int32_t posY)
         : m_displayManager(displayManager)
         , m_renderer(renderer)
         , m_displayId(ramses::InvalidDisplayId)
@@ -30,8 +32,16 @@ namespace RamsesPython
             m_displayManager->dispatchAndFlush();
     }
 
-    void Window::showScene(Scene scene)
+    void Window::showScene(Scene& scene)
     {
+        //std::thread t ([&] {this->_showScene_internal(scene);});
+        //t.join();
+        _showScene_internal(scene);
+    }
+
+    void Window::_showScene_internal(Scene& scene)
+    {
+
         scene.m_scene->flush();
         scene.m_scene->publish();
 

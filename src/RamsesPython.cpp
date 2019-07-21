@@ -11,6 +11,7 @@
 #include "ramses-python/SceneGraphIterator.h"
 #include "ramses-python/TypeConversions.h"
 #include "ramses-client-api/SceneGraphIterator.h"
+#include "ramses-client-api/ResourceIterator.h"
 #include "ramses-renderer-api/DisplayConfig.h"
 
 // Needed for stl <-> python conversions - don't remove!
@@ -21,10 +22,44 @@ namespace RamsesPython
     Ramses::Ramses(std::string name)
         : m_framework(new ramses::RamsesFramework(GetStaticConfig()))
         , m_client(new ramses::RamsesClient(name.c_str(), *m_framework))
+        , m_renderer {nullptr}
+        , m_displayManager {nullptr}
     {
         m_framework->connect();
     };
 
+    Ramses::~Ramses()
+    {
+        ramses::ResourceIterator resource_itr{*m_client};
+        while(ramses::Resource* r = resource_itr.getNext())
+        {
+            m_client->destroy(*r);
+        }
+
+        for(auto it = m_scenes.begin(); it != m_scenes.end(); ++it)
+        {
+            ramses::Scene* scene = it->second;
+            scene->unpublish();
+
+            m_client->destroy(*scene);
+        }
+
+        for (Window* window : m_open_windows)
+        {
+            window->close();
+            delete window;
+        }
+
+        m_renderer->stopThread();
+        m_framework->disconnect();
+
+//        delete m_framework; breaks!
+        delete m_client;
+        delete m_renderer;
+        delete m_displayManager;
+
+
+    }
     Scene Ramses::createScene(std::string sceneName)
     {
         static ramses::sceneId_t sceneIdCounter = 0;
@@ -32,19 +67,29 @@ namespace RamsesPython
         ramses::sceneId_t sceneId = sceneIdCounter++;
         m_scenes[sceneId] = m_client->createScene(sceneId, ramses::SceneConfig(), sceneName.c_str());
 
-        return Scene(m_scenes[sceneId], m_client.get());
+        return Scene(m_scenes[sceneId], m_client);
     }
 
     Window Ramses::openWindow(uint32_t width, uint32_t height, int32_t posX, int32_t posY)
     {
-        if (!m_renderer)
+        if (m_renderer)
         {
-            m_renderer.reset(new ramses::RamsesRenderer(*m_framework, ramses::RendererConfig()));
-            m_displayManager.reset(new ramses_display_manager::DisplayManager(*m_renderer, *m_framework, false));
-            m_renderer->startThread();
+            delete m_renderer;
+        }
+        if (m_displayManager)
+        {
+            delete m_displayManager;
         }
 
-        return Window(m_displayManager, m_renderer, width, height, posX, posY);
+        m_renderer = new ramses::RamsesRenderer(*m_framework, ramses::RendererConfig());
+        m_displayManager = new ramses_display_manager::DisplayManager(*m_renderer, *m_framework, false);
+
+        m_renderer->startThread();
+
+        Window* window = new Window(m_displayManager, m_renderer, width, height, posX, posY);
+        m_open_windows.push_back(window);
+
+        return *window;
     }
 
     ramses::RamsesFrameworkConfig& Ramses::GetStaticConfig()
@@ -70,7 +115,7 @@ PYBIND11_MODULE(RamsesPython, m)
     )pbdoc";
 
     class_<Window>(m, "Window")
-        .def(init< std::shared_ptr<ramses_display_manager::DisplayManager>, std::shared_ptr<ramses::RamsesRenderer>, uint32_t, uint32_t, int32_t, int32_t>())
+        .def(init<ramses_display_manager::DisplayManager* , ramses::RamsesRenderer*, uint32_t, uint32_t, int32_t, int32_t>())
         .def("showScene", &Window::showScene)
         .def("takeScreenshot", &Window::takeScreenshot)
         .def("close", &Window::close);
