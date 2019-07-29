@@ -40,7 +40,6 @@ endif()
 set(ramses_dependencies
     ramses-renderer-api
     ramses-renderer-lib
-    DisplayManager
     ${RND_BACKEND}
     ramses-client-api
     ramses-client
