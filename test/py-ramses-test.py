@@ -7,7 +7,6 @@
 #  -------------------------------------------------------------------------
 
 import RamsesPython
-import time
 
 ramses = RamsesPython.Ramses("test")
 scene = ramses.createScene("test scene")
@@ -97,9 +96,3 @@ if len(validationReport) != 0:
 else:
     print("Scene exported successfully to files {} {}".format(sceneFile, sceneResources))
 
-window = ramses.openWindow(800, 600, 10, 10)
-window.showScene(scene)
-time.sleep(5)
-window.takeScreenshot('screenshot.png')
-
-window.close()

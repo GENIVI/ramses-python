@@ -30,17 +30,7 @@ pybind11_add_module(RamsesPython ${src})
 target_include_directories(RamsesPython PRIVATE src/include)
 add_definitions(-DRAMSES_LINK_STATIC)
 
-# TODO Find a better way to detect the best platform
-if(CMAKE_SYSTEM_NAME MATCHES "Windows")
-    set(RND_BACKEND platform-windows-wgl-4-2-core)
-else()
-    set(RND_BACKEND platform-x11-egl-es-3-0)
-endif()
-
 set(ramses_dependencies
-    ramses-renderer-api
-    ramses-renderer-lib
-    ${RND_BACKEND}
     ramses-client-api
     ramses-client
     ramses-framework-api
