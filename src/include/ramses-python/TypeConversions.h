@@ -43,6 +43,20 @@ namespace RamsesPython
             return Mesh(meshNode);
         }
 
+        static Camera ToCamera(RamsesObject object)
+        {
+            assert(object.m_object != nullptr);
+            ramses::LocalCamera* camera = ramses::RamsesUtils::TryConvert<ramses::LocalCamera>(*const_cast<ramses::RamsesObject*>(object.m_object));
+
+            if(!camera)
+            {
+                std::string msg {"Cannot convert this object to a Camera"};
+                throw std::runtime_error{msg};
+            }
+
+            return Camera(camera);
+
+        }
         static PerspectiveCamera ToPerspectiveCamera(RamsesObject object)
         {
             assert(object.m_object != nullptr);

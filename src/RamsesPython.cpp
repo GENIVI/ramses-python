@@ -262,6 +262,7 @@ PYBIND11_MODULE(RamsesPython, m)
 
     // TODO find out if there is a more pythonic way to deal with types and casts
     m.def("toMesh", &RamsesPython::TypeConversions::ToMesh);
+    m.def("toCamera", &RamsesPython::TypeConversions::ToCamera);
     m.def("toPerspectiveCamera", &RamsesPython::TypeConversions::ToPerspectiveCamera);
     m.def("toOrthographicCamera", &RamsesPython::TypeConversions::ToOrthographicCamera);
     m.def("toNode", &RamsesPython::TypeConversions::ToNode);
