@@ -69,6 +69,8 @@ namespace RamsesPython
 
         RamsesObject findObjectByName(const char* name);
 
+        ramses::status_t destroy(RamsesObject object);
+
     private:
         ramses::Scene* m_scene;
         ramses::RamsesClient* m_client;

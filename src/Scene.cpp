@@ -197,4 +197,26 @@ namespace RamsesPython
     {
         return RamsesPython::RamsesObject {m_scene->findObjectByName(name)};
     }
+
+    ramses::status_t Scene::destroy(RamsesObject object)
+    {
+        assert(object.m_object != nullptr);
+        ramses::SceneObject* scene_object = ramses::RamsesUtils::TryConvert<ramses::SceneObject>(*const_cast<ramses::RamsesObject*>(object.m_object));
+
+        if(!scene_object)
+        {
+            std::string msg {"Cannot destroy this object: this object cannot be cast to a SceneObject*"};
+            throw std::runtime_error{msg};
+        }
+
+        ramses::status_t success = m_scene->destroy(*scene_object);
+
+        if(success != ramses::StatusOK)
+        {
+            std::string msg {"Cannot destroy this object."};
+            throw std::runtime_error{msg};
+        }
+
+        return success;
+    }
 }
