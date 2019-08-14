@@ -160,6 +160,7 @@ PYBIND11_MODULE(RamsesPython, m)
         .def("findObjectByName", &Scene::findObjectByName)
         .def("toText", &Scene::toText)
         .def("toText", &Scene::toTextWithFilter)
+        .def("destroy", &Scene::destroy)
     ;
 
     enum_<ramses::ERamsesObjectType>(m, "ERamsesObjectType", arithmetic(), "Ramses object type")
