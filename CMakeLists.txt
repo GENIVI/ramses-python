@@ -8,6 +8,19 @@
 
 cmake_minimum_required(VERSION 3.10)
 
+# Version
+SET(RP_MAJOR_VERSION 0)
+SET(RP_MINOR_VERSION 1)
+SET(RP_PATCH_VERSION 0)
+
+# Project setup
+PROJECT(RamsesPython
+	LANGUAGES CXX
+	VERSION ${RP_MAJOR_VERSION}.${RP_MINOR_VERSION}.${RP_PATCH_VERSION}
+	DESCRIPTION "RAMSES python bindings"
+	HOMEPAGE_URL "https://github.com/GENIVI/ramses-python"
+)
+
 OPTION(ramses-python_ENABLE_TESTS "Enable tests" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
