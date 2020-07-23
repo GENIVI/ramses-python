@@ -8,7 +8,7 @@
 
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 #include "ramses-python/Scene.h"
 #include "ramses-python/Resource.h"

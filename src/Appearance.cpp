@@ -10,7 +10,7 @@
 #include "ramses-client.h"
 #include <assert.h>
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 namespace RamsesPython
 {

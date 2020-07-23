@@ -7,7 +7,7 @@
 //  -------------------------------------------------------------------------
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 #include "ramses-python/Geometry.h"
 #include "ramses-client-api/Effect.h"

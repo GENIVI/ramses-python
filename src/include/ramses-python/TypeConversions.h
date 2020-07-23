@@ -10,7 +10,7 @@
 #define PYTHONRAMSES_TYPECONVERSIONS_H
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 #include "ramses-client-api/MeshNode.h"
 #include "ramses-client-api/PerspectiveCamera.h"
