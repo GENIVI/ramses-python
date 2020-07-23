@@ -32,7 +32,7 @@ namespace RamsesPython
 
         // TODO is there a way to make class copy-able, and not use shared pointers?
         std::shared_ptr<ramses::RamsesFramework> m_framework;
-        std::shared_ptr<ramses::RamsesClient> m_client;
+        ramses::RamsesClient* m_client;
 
         std::unordered_map<ramses::sceneId_t, ramses::Scene*> m_scenes;
     };

@@ -19,18 +19,18 @@ namespace RamsesPython
 {
     Ramses::Ramses(std::string name)
         : m_framework(new ramses::RamsesFramework(GetStaticConfig()))
-        , m_client(new ramses::RamsesClient(name.c_str(), *m_framework))
+        , m_client(m_framework->createClient(name.c_str()))
     {
     };
 
     Scene Ramses::createScene(std::string sceneName)
     {
-        static ramses::sceneId_t sceneIdCounter = 0;
+        static uint64_t sceneIdCounter = 0;
 
-        ramses::sceneId_t sceneId = sceneIdCounter++;
+        ramses::sceneId_t sceneId(sceneIdCounter++);
         m_scenes[sceneId] = m_client->createScene(sceneId, ramses::SceneConfig(), sceneName.c_str());
 
-        return Scene(m_scenes[sceneId], m_client.get());
+        return Scene(m_scenes[sceneId], m_client);
     }
 
     ramses::RamsesFrameworkConfig& Ramses::GetStaticConfig()

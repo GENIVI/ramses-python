@@ -218,7 +218,7 @@ namespace RamsesPython
 
     void SceneToText::printToStream(std::ostringstream& stream) const
     {
-        stream << "Scene '" << m_scene.getName() << "' [id:" << m_scene.getSceneId() << "]\n";
+        stream << "Scene '" << m_scene.getName() << "' [id:" << m_scene.getSceneId().getValue() << "]\n";
 
         NodeSet rootNodes = collectRootNodes();
 

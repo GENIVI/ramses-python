@@ -46,7 +46,7 @@ namespace RamsesPython
 
     void Node::setVisibility(bool visible)
     {
-        m_node->setVisibility(visible);
+        m_node->setVisibility(visible ? ramses::EVisibilityMode::Visible : ramses::EVisibilityMode::Invisible);
     }
 
     Node Node::getParent()
@@ -88,7 +88,7 @@ namespace RamsesPython
 
     bool Node::getVisibility()
     {
-        return m_node->getVisibility();
+        return m_node->getVisibility() == ramses::EVisibilityMode::Visible;
     }
 
     std::vector<float> Node::getModelMatrix()
