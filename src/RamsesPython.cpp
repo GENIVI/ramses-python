@@ -11,6 +11,8 @@
 #include "ramses-python/SceneGraphIterator.h"
 #include "ramses-python/TypeConversions.h"
 #include "ramses-client-api/SceneGraphIterator.h"
+#include "ramses-client-api/ResourceFileDescriptionSet.h"
+#include "ramses-client-api/ResourceFileDescription.h"
 
 // Needed for stl <-> python conversions - don't remove!
 #include "pybind11/stl.h"
@@ -31,6 +33,23 @@ namespace RamsesPython
         m_scenes[sceneId] = m_client->createScene(sceneId, ramses::SceneConfig(), sceneName.c_str());
 
         return Scene(m_scenes[sceneId], m_client);
+    }
+
+    Scene Ramses::loadSceneFromFile(std::string sceneFile, std::string resourceFile)
+    {
+        ramses::ResourceFileDescriptionSet resourceFileInformation;
+        resourceFileInformation.add(ramses::ResourceFileDescription(resourceFile.c_str()));
+        ramses::Scene* scene = m_client->loadSceneFromFile(sceneFile.c_str(), resourceFileInformation);
+
+        if (scene == nullptr)
+        {
+            throw std::runtime_error("Could not load scene! Check ramses errors above for details!");
+        }
+
+        ramses::sceneId_t sceneId = scene->getSceneId();
+        m_scenes[sceneId] = scene;
+
+        return Scene(scene, m_client);
     }
 
     ramses::RamsesFrameworkConfig& Ramses::GetStaticConfig()
@@ -57,7 +76,8 @@ PYBIND11_MODULE(RamsesPython, m)
 
     class_<Ramses>(m, "Ramses")
         .def(init< std::string >())
-        .def("createScene", &Ramses::createScene);
+        .def("createScene", &Ramses::createScene)
+        .def("loadSceneFromFile", &Ramses::loadSceneFromFile);
 
     class_<RamsesObject>(m, "RamsesObject")
         .def("getName", &RamsesObject::getName)

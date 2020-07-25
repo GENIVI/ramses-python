@@ -26,6 +26,7 @@ namespace RamsesPython
         Ramses(std::string name);
 
         Scene createScene(std::string sceneName);
+        Scene loadSceneFromFile(std::string sceneFile, std::string resourceFile);
 
     private:
         static ramses::RamsesFrameworkConfig& GetStaticConfig();
