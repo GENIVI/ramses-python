@@ -25,7 +25,7 @@ namespace RamsesPython
 
     Scene Ramses::createScene(std::string sceneName)
     {
-        static uint64_t sceneIdCounter = 0;
+        static uint64_t sceneIdCounter = 1;
 
         ramses::sceneId_t sceneId(sceneIdCounter++);
         m_scenes[sceneId] = m_client->createScene(sceneId, ramses::SceneConfig(), sceneName.c_str());
